@@ -13,8 +13,8 @@ file(GLOB_RECURSE Hdr CONFIGURE_DEPENDS ${IncDir}/*)
 add_library(Prokas_libcef SHARED IMPORTED GLOBAL)
 set_target_properties(Prokas_libcef PROPERTIES
     #IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rel/libcef.dll
-    IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef.lib
-    IMPORTED_LOCATION_DEBUG             ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef.lib
+    IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef.dll
+    IMPORTED_LOCATION_DEBUG             ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef.dll
     #IMPORTED_LOCATION_RELWITHDEBINFO    ${CMAKE_CURRENT_SOURCE_DIR}/FreeImage.dll
     IMPORTED_IMPLIB                     ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef.lib
     IMPORTED_IMPLIB_DEBUG               ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef.lib

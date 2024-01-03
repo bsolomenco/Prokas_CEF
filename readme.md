@@ -1,3 +1,7 @@
+# Purpose
+... is to have custom CEF binaries (mainly `libcef_dll_wrapper`) as a CMake target (as import library) usable in a CMake build system
+... in a minimalistic separate repository
+
 # Clone
 - `git clone https://github.com/bsolomenco/Prokas_CEF.git .`
 - folder structure:
@@ -13,6 +17,7 @@
 - download a CEF binary package from `https://github.com/chromiumembedded/cef` ... `https://cef-builds.spotifycdn.com/index.html#windows32:90`
     - `cef_binary_90.6.7+g19ba721+chromium-90.0.4430.212_windows32.tar.bz2`
     - `cef_binary_120.1.10+g3ce3184+chromium-120.0.6099.129_windows32.tar.bz2`
+    - ... or keep the package also in this repo
 - execute `run.cmd`
 
 # Patch creation
