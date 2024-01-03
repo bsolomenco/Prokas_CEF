@@ -1,5 +1,5 @@
 # Clone
-- `git clone -b 90.6.7_windows32_minimal https://github.com/bsolomenco/Prokas_CEF.git .`
+- `git clone -b 90.6.7_windows32 https://github.com/bsolomenco/Prokas_CEF.git .`
 - folder structure:
 ```
     bin\            - CMake SHARED IMPORTED library project
