@@ -1,0 +1,10 @@
+cef_binary_*
+src
+.bld
+bin/dbg
+bin/rls
+**/*.bin
+**/*.dll
+**/*.exe
+**/*.lib
+bin/**/*.json

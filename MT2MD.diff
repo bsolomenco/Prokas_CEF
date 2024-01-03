@@ -1,0 +1,22 @@
+diff --git a/src/cmake/cef_variables.cmake b/src/cmake/cef_variables.cmake
+index c0b422f..cde802c 100644
+--- a/src/cmake/cef_variables.cmake
++++ b/src/cmake/cef_variables.cmake
+@@ -63,7 +63,7 @@ set(CEF_LIBCEF_DLL_WRAPPER_PATH "${_CEF_ROOT}/libcef_dll")
+ 
+ # Shared compiler/linker flags.
+ list(APPEND CEF_COMPILER_DEFINES
+-  # Allow C++ programs to use stdint.h macros specified in the C99 standard that aren't 
++  # Allow C++ programs to use stdint.h macros specified in the C99 standard that aren't
+   # in the C++ standard (e.g. UINT8_MAX, INT64_MIN, etc)
+   __STDC_CONSTANT_MACROS __STDC_FORMAT_MACROS
+   )
+@@ -390,7 +390,7 @@ if(OS_WINDOWS)
+   set(CEF_DEBUG_INFO_FLAG "/Zi" CACHE STRING "Optional flag specifying specific /Z flag to use")
+ 
+   # Consumers using different runtime types may want to pass different flags
+-  set(CEF_RUNTIME_LIBRARY_FLAG "/MT" CACHE STRING "Optional flag specifying which runtime to use")
++  set(CEF_RUNTIME_LIBRARY_FLAG "/MD" CACHE STRING "Optional flag specifying which runtime to use")
+   if (CEF_RUNTIME_LIBRARY_FLAG)
+     list(APPEND CEF_COMPILER_FLAGS_DEBUG ${CEF_RUNTIME_LIBRARY_FLAG}d)
+     list(APPEND CEF_COMPILER_FLAGS_RELEASE ${CEF_RUNTIME_LIBRARY_FLAG})
