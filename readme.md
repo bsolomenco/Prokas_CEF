@@ -1,12 +1,32 @@
 # Purpose
-... is to have custom CEF binaries (mainly `libcef_dll_wrapper`) as a CMake target (as import library) usable in a CMake build system
-... in a minimalistic separate repository
+- ... is to have custom CEF binaries (mainly `libcef_dll_wrapper`) as a CMake target (as import library) usable in a CMake build system
+- ... in a minimalistic separate repository
+- ... with CMake build system ... installing necessary files in Prokas sourcetree
+
+# Dependencies
+
+```
+- CEF binary package
+    --> src [patched]
+        --> libcef_dll_wrapper.lib  |
+            CMakeLists.txt          | ==> Prokas_libcef_dll_wrapper (CMake STATIC IMPORTED library)
+    --> binaries
+        --> libcef.dll&lib          |
+            CMakeLists.txt          | ==> Prokas_libcef (CMake SHARED IMPORTED library)
+```
+```
+- CefControl (dll+lib)                              --> target_link_libraries(... Prokas_libcef Prokas_libcef_dll_wrapper ...)
+    - libcef_dll_wrapper.lib (static library)
+    - libcef.lib (+dll)
+        - chrome_elf.dll
+    - C-runtime DLLs                                dynamically linked (/MD)
+```
 
 # Clone
 - `git clone https://github.com/bsolomenco/Prokas_CEF.git .`
 - folder structure:
 ```
-    bin\            - CMake SHARED IMPORTED library project
+    bin\            - CMake project with IMPORTED libraries
     tst\            - test project using the CMake SHARED IMPORTED library project from bin (NOTE: Debug configuration will fail when using a minimal package because it doesn't contain necessary files!)
     CMakeLists.txt  - CMake project for libcef_dll_wrapper
     MT2MD.diff      - patch to use /MD instead /MT

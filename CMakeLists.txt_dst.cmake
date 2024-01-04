@@ -1,17 +1,18 @@
-#rd /Q /S .tmp & cmake -A Win32 -B .tmp && cmake --build .tmp --target install --config Release
-#rm -rf .tmp   ; cmake -A Win32 -B .tmp && cmake --build .tmp --target install --config Release
+#USAGE (in a project using CEF):
+#   add_subdirectory("thisDir" ProkasCefImportLibs)
+#   target_link_libraries(${PROJECT_NAME} PRIVATE ProkasCefImportLibs_libcef ProkasCefImportLibs_libcef_dll_wrapper)
 
 cmake_minimum_required(VERSION 3.28)
 
-project(Prokas_CEF_ImportLib)
+project(ProkasCefImportLibs)
 
-set(CefDir "../src")
-set(IncDir "${CefDir}/include")
+#set(CefDir "../src")
+set(IncDir "inc")
 
-file(GLOB_RECURSE Hdr CONFIGURE_DEPENDS ${IncDir}/*)
+file(GLOB_RECURSE Hdr CONFIGURE_DEPENDS "inc/*")
 
-add_library(Prokas_libcef SHARED IMPORTED GLOBAL)
-set_target_properties(Prokas_libcef PROPERTIES
+add_library(ProkasCefImportLibs_libcef SHARED IMPORTED GLOBAL)
+set_target_properties(ProkasCefImportLibs_libcef PROPERTIES
     #IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rel/libcef.dll
     IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef.dll
     IMPORTED_LOCATION_DEBUG             ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef.dll
@@ -21,17 +22,17 @@ set_target_properties(Prokas_libcef PROPERTIES
     #IMPORTED_SONAME                     ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef.lib
     #IMPORTED_CONFIGURATIONS "RELEASE;DEBUG"
 )
-set_property(TARGET Prokas_libcef APPEND PROPERTY PUBLIC_HEADER ${Hdr})
-target_include_directories(Prokas_libcef BEFORE INTERFACE ${CefDir})
+set_property(TARGET ProkasCefImportLibs_libcef APPEND PROPERTY PUBLIC_HEADER ${Hdr})
+target_include_directories(ProkasCefImportLibs_libcef BEFORE INTERFACE "${IncDir}")
 
 ########
 
-add_library(Prokas_libcef_dll_wrapper STATIC IMPORTED GLOBAL)
-set_target_properties(Prokas_libcef_dll_wrapper PROPERTIES
+add_library(ProkasCefImportLibs_libcef_dll_wrapper STATIC IMPORTED GLOBAL)
+set_target_properties(ProkasCefImportLibs_libcef_dll_wrapper PROPERTIES
     IMPORTED_LOCATION                   ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef_dll_wrapper.lib
     IMPORTED_LOCATION_DEBUG             ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef_dll_wrapper.lib
     IMPORTED_IMPLIB                     ${CMAKE_CURRENT_SOURCE_DIR}/rls/libcef_dll_wrapper.lib
     IMPORTED_IMPLIB_DEBUG               ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef_dll_wrapper.lib
 )
-set_property(TARGET Prokas_libcef_dll_wrapper APPEND PROPERTY PUBLIC_HEADER ${Hdr})
-target_include_directories(Prokas_libcef_dll_wrapper BEFORE INTERFACE ${CefDir})
+set_property(TARGET ProkasCefImportLibs_libcef_dll_wrapper APPEND PROPERTY PUBLIC_HEADER ${Hdr})
+target_include_directories(ProkasCefImportLibs_libcef_dll_wrapper BEFORE INTERFACE "${IncDir}")

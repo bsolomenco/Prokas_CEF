@@ -7,22 +7,14 @@ if "%1"=="" (
         call :help "%~nx0"
         goto:END
     )
+    echo using existing folder "%srcDir%"
 ) else (
     rem remove "src" dir and recreate it from %1
     if EXIST "%srcDir%" (call :echoDo rd /Q /S "%srcDir%")
     call :unpackAndPatch "%1" || exit /b
 )
 
-set "dbgDir=bin/dbg"
-set "rlsDir=bin/rls"
-
-if EXIST "%dbgDir%" (call :echoDo rd /Q /S "%dbgDir%")
-if EXIST "%rlsDir%" (call :echoDo rd /Q /S "%rlsDir%")
-
 call :build || exit /b
-
-call :echoDo copy /Y "%srcDir%\Debug\*"     "%dbgDir%"
-call :echoDo copy /Y "%srcDir%\Release\*"   "%rlsDir%"
 
 :END
 exit /B 0
@@ -75,7 +67,7 @@ rem call :unpackAndPatch id
     exit /B 0
 
 @rem ================================================================
-rem call :build
+rem call :build ToDo: add destination:-DCMAKE_INSTALL_PREFIX="G:/Prokas2/EXTERN/CEF"
 :build
     if EXIST ".bld" (call :echoDo rd /Q /S .bld)
     call :echoDo cmake.exe -B .bld -A Win32
