@@ -3,6 +3,8 @@
 #rd /Q /S .bld & cmake -B .bld -A Win32 -D"bz2=cef_binary_109.1.18+gf1c41e4+chromium-109.0.5414.120_windows32" -D"CMAKE_INSTALL_PREFIX=G:/Prokas2/src/Extern/CEF/109.1.18" && cmake --build .bld --target install --config Release
 #rd /Q /S .bld & cmake -B .bld -A Win32 -D"bz2=cef_binary_119.4.2+g2d7731b+chromium-119.0.6045.124_windows32"  -D"CMAKE_INSTALL_PREFIX=G:/Prokas2/src/Extern/CEF/119.4.2"  && cmake --build .bld --target install --config Release
 #rd /Q /S .bld & cmake -B .bld -A Win32 -D"bz2=cef_binary_120.1.10+g3ce3184+chromium-120.0.6099.129_windows32" -D"CMAKE_INSTALL_PREFIX=G:/Prokas2/src/Extern/CEF/120.1.10" && cmake --build .bld --target install --config Release
+#- debug build: remove "--config Release" or replace it with "--config Debug"
+#- build existing "src": omit "-Dbz2=..."
 
 cmake_minimum_required(VERSION 3.28)
 
@@ -25,7 +27,7 @@ then execute the following command line:
     rd /Q /S .bld & cmake -B .bld -A Win32 -D"bz2=..." -D"CMAKE_INSTALL_PREFIX=..."  && cmake --build .bld --target install --config Release
 with the following parameters:
         bz2                     : CEF binary package name (without extension), e.g. cef_binary_90.6.7+g19ba721+chromium-90.0.4430.212_windows32
-        CMAKE_INSTALL_PREFIX    : destination path; usually G:/Prokas2/src/Extern/CEF/090.6.7
+        CMAKE_INSTALL_PREFIX    : destination path; usually G:/Prokas2/src/Extern/CEF/090.6.7; default=dst
     ]========])
 endfunction()
 
@@ -54,27 +56,21 @@ endfunction()
 
 ################################################################
 function(configInstall)
-    set(DstDbgDir "${CMAKE_INSTALL_PREFIX}/dbg")
-    set(DstRlsDir "${CMAKE_INSTALL_PREFIX}/rls")
+    set(DstLibDir "${CMAKE_INSTALL_PREFIX}/lib")
     set(DstIncDir "${CMAKE_INSTALL_PREFIX}/include")
 
-    install(TARGETS libcef_dll_wrapper CONFIGURATIONS Debug
-        ARCHIVE         DESTINATION "${DstDbgDir}"
-        LIBRARY         DESTINATION "${DstDbgDir}"
-        RUNTIME         DESTINATION "${DstDbgDir}"
-        PUBLIC_HEADER   DESTINATION "${DstIncDir}"
-    )
-    install(TARGETS libcef_dll_wrapper CONFIGURATIONS Release
-        ARCHIVE         DESTINATION "${DstRlsDir}"
-        LIBRARY         DESTINATION "${DstRlsDir}"
-        RUNTIME         DESTINATION "${DstRlsDir}"
+    install(TARGETS libcef_dll_wrapper #CONFIGURATIONS Release
+        #ARCHIVE         DESTINATION "${DstRlsDir}"
+        LIBRARY         DESTINATION "${DstLibDir}"
+        #RUNTIME         DESTINATION "${DstRlsDir}"
         PUBLIC_HEADER   DESTINATION "${DstIncDir}"
     )
 
-    install(DIRECTORY "src/Debug/"   DESTINATION "${DstDbgDir}" CONFIGURATIONS Debug)
-    install(DIRECTORY "src/Release/" DESTINATION "${DstRlsDir}" CONFIGURATIONS Release)
+    #install(DIRECTORY "src/Debug/"   DESTINATION "${DstDbgDir}" CONFIGURATIONS Debug)
+    #install(DIRECTORY "src/Release/" DESTINATION "${DstRlsDir}" CONFIGURATIONS Release)
     install(DIRECTORY "src/include/" DESTINATION "${DstIncDir}")
 
+    install(FILES "src/Release/libcef.lib "  DESTINATION "${DstLibDir}")
     install(FILES "CMakeLists.txt_dst.cmake" DESTINATION "${CMAKE_INSTALL_PREFIX}" RENAME "CMakeLists.txt")
 endfunction()
 
