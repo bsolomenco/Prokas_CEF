@@ -38,7 +38,7 @@
     - `cef_binary_90.6.7+g19ba721+chromium-90.0.4430.212_windows32.tar.bz2`
     - `cef_binary_120.1.10+g3ce3184+chromium-120.0.6099.129_windows32.tar.bz2`
     - ... or keep the package also in this repo
-- execute `run.cmd`
+- read the comments from CMakeLists.txt
 
 # Patch creation
 - in a tmp dir:

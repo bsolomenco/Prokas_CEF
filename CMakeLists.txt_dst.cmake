@@ -7,9 +7,9 @@ cmake_minimum_required(VERSION 3.28)
 project(ProkasCefImportLibs)
 
 #set(CefDir "../src")
-set(IncDir "inc")
+#set(IncDir "inc")
 
-file(GLOB_RECURSE Hdr CONFIGURE_DEPENDS "inc/*")
+file(GLOB_RECURSE Hdr CONFIGURE_DEPENDS "include")
 
 add_library(ProkasCefImportLibs_libcef SHARED IMPORTED GLOBAL)
 set_target_properties(ProkasCefImportLibs_libcef PROPERTIES
@@ -23,7 +23,7 @@ set_target_properties(ProkasCefImportLibs_libcef PROPERTIES
     #IMPORTED_CONFIGURATIONS "RELEASE;DEBUG"
 )
 set_property(TARGET ProkasCefImportLibs_libcef APPEND PROPERTY PUBLIC_HEADER ${Hdr})
-target_include_directories(ProkasCefImportLibs_libcef BEFORE INTERFACE "${IncDir}")
+target_include_directories(ProkasCefImportLibs_libcef BEFORE INTERFACE ".")
 
 ########
 
@@ -35,4 +35,4 @@ set_target_properties(ProkasCefImportLibs_libcef_dll_wrapper PROPERTIES
     IMPORTED_IMPLIB_DEBUG               ${CMAKE_CURRENT_SOURCE_DIR}/dbg/libcef_dll_wrapper.lib
 )
 set_property(TARGET ProkasCefImportLibs_libcef_dll_wrapper APPEND PROPERTY PUBLIC_HEADER ${Hdr})
-target_include_directories(ProkasCefImportLibs_libcef_dll_wrapper BEFORE INTERFACE "${IncDir}")
+target_include_directories(ProkasCefImportLibs_libcef_dll_wrapper BEFORE INTERFACE ".")
